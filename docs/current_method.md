@@ -9,6 +9,16 @@ This document summarizes the current working benchmark method encoded in the rep
 - Confirmed benchmark repo root: `/Users/stephenbeale/Projects/ToM_AI_Research_Team`
 - Do not use the similarly named path with spaces as the repo root.
 
+## Cross-Repo Pipeline Contract
+
+- Canonical orchestration repo root: `/Users/stephenbeale/Projects/autoresearch-macos-tomx`
+- Cross-repo path ownership and transfer rules now live in `policies/cross_repo_pipeline.yaml`.
+- Benchmark-side `logs/`, `modal/`, and `incumbents/` remain the authoritative artifact stores.
+- Orchestration-side `policies/`, `examples/tom_ai_research_team/`, `docs/`, and `studies/` remain the workflow, overlay, and derived-report layer.
+- Orchestration policy should normally be referenced from benchmark work, not copied into the benchmark repo.
+- Benchmark evidence may be copied or summarized into orchestration reports only if the benchmark-side source paths are preserved and cited.
+- Validator command: `python validate_cross_repo_pipeline.py --working-directory /Users/stephenbeale/Projects/autoresearch-macos-tomx`
+
 ## Safe Editable Zones
 
 - `train.py` is the current bounded hypothesis-edit surface.

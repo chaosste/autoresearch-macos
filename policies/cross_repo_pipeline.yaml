@@ -1,0 +1,206 @@
+schema_version: "1.0"
+
+cross_repo_pipeline:
+  pipeline_id: "tomx_benchmark_orchestration_contract"
+  status: "draft"
+  purpose: >
+    Establish the canonical roots, ownership boundaries, and allowed transfer
+    paths between the benchmark repository and the orchestration repository.
+
+  repositories:
+    benchmark:
+      name: "ToM_AI_Research_Team"
+      root: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
+      role: "scientific_source_of_truth"
+      canonical: true
+      legacy_roots:
+        - path: "/Users/stephenbeale/Projects/ToM AI Research Team"
+          status: "legacy"
+          rule: "Do not use as an active working root."
+      owned_paths:
+        - path: "train.py"
+          write_policy: "bounded_train_py_changes_only"
+        - path: "env.py"
+          write_policy: "explicit_benchmark_revision_only"
+        - path: "eval.py"
+          write_policy: "explicit_benchmark_revision_only"
+        - path: "scripts/local_runner.py"
+          write_policy: "frozen_harness_only"
+        - path: "logs/"
+          write_policy: "benchmark_run_outputs"
+        - path: "modal/"
+          write_policy: "benchmark_long_run_outputs"
+        - path: "incumbents/"
+          write_policy: "promotion_snapshot_storage"
+
+    orchestration:
+      name: "autoresearch-macos-tomx"
+      root: "/Users/stephenbeale/Projects/autoresearch-macos-tomx"
+      role: "workflow_policy_and_reporting_layer"
+      canonical: true
+      owned_paths:
+        - path: "policies/"
+          write_policy: "workflow_contracts_and_rules"
+        - path: "examples/tom_ai_research_team/"
+          write_policy: "benchmark_overlay_examples"
+        - path: "docs/"
+          write_policy: "human_readable_method_docs"
+        - path: "studies/"
+          write_policy: "derived_analysis_and_study_notes"
+        - path: "Research space.code-workspace"
+          write_policy: "workspace_projection_only"
+
+  canonical_path_rules:
+    benchmark_root_must_be: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
+    orchestration_root_must_be: "/Users/stephenbeale/Projects/autoresearch-macos-tomx"
+    forbid_active_use_of_paths:
+      - "/Users/stephenbeale/Projects/ToM AI Research Team"
+    notes:
+      - "Treat the underscore-path benchmark root as the only active benchmark repo root."
+      - "Treat benchmark-side incumbents as living under /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/."
+
+  handoff_paths:
+    benchmark_inputs:
+      benchmark_root: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
+      smoke_command: "python scripts/local_runner.py --train-episodes 5 --seed 7 --output-root logs/<run_label>"
+      quick_gate_summary_pattern: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/<run_label>_quick_gate_summary.md"
+      promotion_gate_summary_pattern: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/<run_label>_promotion_gate_summary.md"
+      incumbent_root: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/"
+      expected_incumbent_paths:
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v5-delayedtrust-split-candidate"
+    orchestration_outputs:
+      policy_root: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/policies/"
+      overlay_root: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/examples/tom_ai_research_team/"
+      studies_root: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/studies/"
+      study_notes_root: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/docs/study_notes/"
+      method_doc: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/docs/current_method.md"
+
+  transfer_rules:
+    - transfer_id: "orchestration_policy_into_benchmark_context"
+      direction: "orchestration_to_benchmark"
+      source_paths:
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/policies/*.yaml"
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/examples/tom_ai_research_team/repo_overlay.yaml"
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/docs/current_method.md"
+      destination_paths:
+        - "Benchmark work context only; do not copy into the benchmark repo unless explicitly requested."
+      transfer_mode: "reference_only"
+      preserve_source: true
+      overwrite_policy: "not_applicable"
+
+    - transfer_id: "benchmark_evidence_into_orchestration_reports"
+      direction: "benchmark_to_orchestration"
+      source_paths:
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/modal/"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/"
+      destination_paths:
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/studies/"
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/docs/study_notes/"
+        - "/Users/stephenbeale/Projects/autoresearch-macos-tomx/docs/current_method.md"
+      transfer_mode: "derive_or_copy"
+      preserve_source: true
+      overwrite_policy: "never_silent_overwrite"
+      provenance_note_required: true
+
+    - transfer_id: "benchmark_internal_promotion_snapshot"
+      direction: "benchmark_internal"
+      source_paths:
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/train.py"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/<run_label>/selection/selection.json"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/<run_label>/candidate_metrics/metrics.json"
+      destination_paths:
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/<candidate_name>/"
+      transfer_mode: "copy"
+      preserve_source: true
+      overwrite_policy: "never_silent_overwrite"
+      require_successful_promotion_decision: true
+
+  stage_pipeline:
+    - stage_id: "author_policy"
+      primary_repo: "orchestration"
+      working_directory: "/Users/stephenbeale/Projects/autoresearch-macos-tomx"
+      reads:
+        - "policies/*.yaml"
+        - "examples/tom_ai_research_team/repo_overlay.yaml"
+        - "docs/current_method.md"
+      writes:
+        - "policies/"
+        - "examples/tom_ai_research_team/"
+        - "docs/current_method.md"
+      output: "Updated workflow policy and benchmark overlay."
+
+    - stage_id: "run_benchmark"
+      primary_repo: "benchmark"
+      working_directory: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
+      reads:
+        - "train.py"
+        - "env.py"
+        - "eval.py"
+        - "scripts/local_runner.py"
+        - "incumbents/"
+      writes:
+        - "logs/"
+        - "modal/"
+      block_if:
+        - "Working directory resolves to the legacy benchmark root with spaces."
+      output: "Benchmark evidence written under logs/ or modal/."
+
+    - stage_id: "summarize_results"
+      primary_repo: "orchestration"
+      working_directory: "/Users/stephenbeale/Projects/autoresearch-macos-tomx"
+      reads:
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/logs/"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/modal/"
+        - "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/"
+      writes:
+        - "studies/"
+        - "docs/study_notes/"
+      preserve_source: true
+      output: "Derived reports and study notes."
+
+    - stage_id: "promote_candidate"
+      primary_repo: "benchmark"
+      working_directory: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
+      reads:
+        - "logs/<run_label>/selection/selection.json"
+        - "logs/<run_label>/candidate_metrics/metrics.json"
+        - "logs/<run_label>_promotion_gate_summary.md"
+      writes:
+        - "incumbents/<candidate_name>/"
+      require_policy_success: true
+      preserve_source: true
+      output: "Candidate snapshot recorded in the benchmark repo incumbent archive."
+
+  safety_rules:
+    preserve_timestamps_when_possible: true
+    never_delete_source_after_copy: true
+    never_silent_overwrite: true
+    require_conflict_backup: true
+    conflict_backup_pattern: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/_migration_backup_<timestamp>"
+    forbid_repointing_canonical_root_without_explicit_human_approval: true
+
+  provenance_requirements:
+    required_when_copying_or_deriving:
+      - "source_absolute_path"
+      - "source_repo_root"
+      - "timestamp_utc"
+      - "operator_or_agent"
+    notes:
+      - "Reports in the orchestration repo should cite benchmark-side source paths."
+      - "Copied or derived artifacts must not become the sole source of truth."
+
+notes:
+  confirmed_facts:
+    - "The benchmark repo is /Users/stephenbeale/Projects/ToM_AI_Research_Team."
+    - "The orchestration repo is /Users/stephenbeale/Projects/autoresearch-macos-tomx."
+    - "Benchmark-side logs/, modal/, and incumbents/ are the authoritative artifact stores."
+    - "The orchestration repo owns reusable workflow policy, overlays, and derived study/report writing."
+  working_assumptions:
+    - "Most orchestration-to-benchmark handoff happens by reference rather than by copying policy files into the benchmark repo."
+    - "Promotion snapshots remain benchmark-internal artifacts even when the decision narrative is also documented in the orchestration repo."
+  open_questions:
+    - "Should a machine-enforced sync command validate this contract before report generation or promotion?"

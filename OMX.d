@@ -14,9 +14,9 @@ tom
 
 Created:
 
-- /Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage/train.py
-- /Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage/INCUMBENT_CANDIDATE_NOTE.md
-- /Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage/RESULTS_TABLE.md
+- /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage/train.py
+- /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage/INCUMBENT_CANDIDATE_NOTE.md
+- /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage/RESULTS_TABLE.md
 
 ### Repo-Local Subagents
 
@@ -55,7 +55,7 @@ omx setup
 ## B) Prepare Your Experiment Repo
 
 ```bash
-cd "/Users/stephenbeale/Projects/ToM AI Research Team"
+cd "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
 source .venv/bin/activate
 python scripts/local_runner.py --train-episodes 5 --seed 7 --output-root logs/pre_omx_smoke
 ```
@@ -136,15 +136,15 @@ codex "Compare logs/omx_full_1/selection/selection.json against the incumbent me
 If the run wins:
 
 ```bash
-mkdir -p "/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx"
-cp train.py "/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx/train.py"
-cp logs/omx_full_1/selection/selection.json "/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx/selection.json"
+mkdir -p "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx"
+cp train.py "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx/train.py"
+cp logs/omx_full_1/selection/selection.json "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx/selection.json"
 ```
 
 Then create promotion note:
 
 ```bash
-cat > "/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx/INCUMBENT_NOTE.md" <<'EOF'
+cat > "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx/INCUMBENT_NOTE.md" <<'EOF'
 Promoted from OMX train.py-only pass.
 Benchmark: Variant 1 frozen ambiguous bottleneck
 Reason:

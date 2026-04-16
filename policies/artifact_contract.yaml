@@ -92,13 +92,13 @@ artifact_contract:
       validation_rule: "Must summarize aggregate and per-seed promotion outcomes using the declared reusable gate policy."
     - artifact_id: "branch_specific_results_table"
       kind: "summary"
-      path_glob: "/Users/stephenbeale/Projects/ToM experiment incumbent */RESULTS_TABLE.md"
+      path_glob: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent */RESULTS_TABLE.md"
       required: false
       evidence_class: "supporting"
       validation_rule: "Optional branch-specific evidence convention with per-seed rows and aggregate means."
     - artifact_id: "branch_specific_note"
       kind: "comparison"
-      path_glob: "/Users/stephenbeale/Projects/ToM experiment incumbent */INCUMBENT*_NOTE.md"
+      path_glob: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent */INCUMBENT*_NOTE.md"
       required: false
       evidence_class: "supporting"
       validation_rule: "Optional branch-specific evidence convention for narrative promotion or incumbent notes."

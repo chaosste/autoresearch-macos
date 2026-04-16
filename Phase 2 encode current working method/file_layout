@@ -2,8 +2,7 @@ repo_id: tom_ai_research_team
 
 display_name: ToM AI Research Team
 repo_root: /Users/stephenbeale/Projects/ToM_AI_Research_Team
-repo_root_aliases:
-  - /Users/stephenbeale/Projects/ToM AI Research Team
+repo_root_aliases: []
 
 description: >
   Local-first Theory of Mind benchmark repo for ambiguity-heavy coordination
@@ -56,9 +55,9 @@ zones:
     - archive/
     - modal/tom-experiment-incumbent/
   external_provenance_paths:
-    - /Users/stephenbeale/Projects/ToM experiment incumbent v3-omx
-    - /Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage
-    - /Users/stephenbeale/Projects/ToM experiment incumbent v5-delayedtrust-split-candidate
+    - /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx
+    - /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage
+    - /Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v5-delayedtrust-split-candidate
     - /Users/stephenbeale/Projects/autoresearch-macos-tomx
 
 provenance:

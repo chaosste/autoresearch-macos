@@ -8,7 +8,7 @@ repo:
   canonical_root:
     value: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"
     status: "confirmed"
-    notes: "Use this as the only benchmark repo root; the similarly named path with spaces is a non-canonical alias."
+    notes: "Use this as the only benchmark repo root."
 
   benchmark_identity:
     name: "ToM_AI_Research_Team"
@@ -19,6 +19,11 @@ repo:
     The benchmark repository is the source of truth for benchmark semantics,
     metric definitions, and scientific results. The orchestration repository
     must not silently redefine them.
+
+cross_repo_contracts:
+  - path: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/policies/cross_repo_pipeline.yaml"
+    purpose: "Defines canonical roots, ownership boundaries, and allowed cross-repo transfer directions."
+    status: "confirmed"
 
 zones:
   safe_editable:
@@ -71,16 +76,16 @@ run_context:
     - path: "modal/tom-experiment-incumbent"
       purpose: "internal incumbent archive and warm-start checkpoints"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent"
       purpose: "external incumbent snapshots"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx"
       purpose: "external incumbent snapshots"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage"
       purpose: "external incumbent snapshots"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent v5-delayedtrust-split-candidate"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v5-delayedtrust-split-candidate"
       purpose: "external incumbent snapshots"
       status: "confirmed"
 
@@ -88,10 +93,10 @@ run_context:
     - path: "/Users/stephenbeale/Projects/autoresearch-macos-tomx/studies/"
       purpose: "optional branch-specific study notes and mini-benchmark specs"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage/RESULTS_TABLE.md"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage/RESULTS_TABLE.md"
       purpose: "optional branch-specific promotion evidence convention"
       status: "confirmed"
-    - path: "/Users/stephenbeale/Projects/ToM experiment incumbent v5-delayedtrust-split-candidate/RESULTS_TABLE.md"
+    - path: "/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v5-delayedtrust-split-candidate/RESULTS_TABLE.md"
       purpose: "optional branch-specific promotion evidence convention"
       status: "confirmed"
 

@@ -17,10 +17,13 @@ You are working in the orchestration repo:
 /Users/stephenbeale/Projects/autoresearch-macos-tomx  
   
 Not the benchmark repo though you will need to refer to it:  
-/Users/stephenbeale/Projects/ToM_AI_Research_TeamAnd these:/Users/stephenbeale/Projects/ToM experiment incumbent  
-/Users/stephenbeale/Projects/ToM experiment incumbent v3-omx  
-/Users/stephenbeale/Projects/ToM experiment incumbent v4-postevidence-reengage  
-/Users/stephenbeale/Projects/ToM experiment incumbent v5-delayedtrust-split-candidate  
+/Users/stephenbeale/Projects/ToM_AI_Research_Team
+
+And these incumbent archives:
+/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent
+/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v3-omx
+/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v4-postevidence-reengage
+/Users/stephenbeale/Projects/ToM_AI_Research_Team/incumbents/ToM experiment incumbent v5-delayedtrust-split-candidate
   
 This task is **Phase 2 only: Encode the current working benchmark method into explicit files with stable schemas**. Do not add runners, adapters, helper scripts, or UI. Do not redefine benchmark semantics, metric definitions, or scientific thresholds. The benchmark repo remains the scientific source of truth; the orchestration repo captures workflow structure, policy, and provenance.      
   
