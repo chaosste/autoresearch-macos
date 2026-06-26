@@ -98,6 +98,7 @@ def command_check_setup(args: argparse.Namespace) -> int:
         current_branch = run_git(["rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
         dirty = bool(run_git(["status", "--porcelain"]).stdout.strip())
 
+    repo_ready = git_ok and uv_ok and all(required_repo_files.values())
     payload = {
         "repo_root": str(root),
         "current_branch": current_branch,
@@ -110,15 +111,17 @@ def command_check_setup(args: argparse.Namespace) -> int:
         "data_shards": parquet_count,
         "tokenizer_files": tokenizer_files,
         "required_repo_files": required_repo_files,
+        "repo_only": args.repo_only,
+        "repo_ready": repo_ready,
     }
     payload["ready_for_training"] = (
-        uv_ok
-        and git_ok
-        and all(required_repo_files.values())
+        repo_ready
         and parquet_count >= 2
         and all(tokenizer_files.values())
     )
     print_payload(payload, args.json)
+    if args.repo_only:
+        return 0 if repo_ready else 1
     return 0 if payload["ready_for_training"] else 1
 
 
@@ -293,6 +296,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     check = subparsers.add_parser("check-setup", help="Verify repo and cache prerequisites")
     check.add_argument("--json", action="store_true", help="Emit JSON output")
+    check.add_argument(
+        "--repo-only",
+        action="store_true",
+        help="Only verify repo files and tooling (skip cache/tokenizer requirements)",
+    )
     check.set_defaults(func=command_check_setup)
 
     create_branch = subparsers.add_parser(

@@ -47,8 +47,6 @@ cross_repo_pipeline:
           write_policy: "human_readable_method_docs"
         - path: "studies/"
           write_policy: "derived_analysis_and_study_notes"
-        - path: "Research space.code-workspace"
-          write_policy: "workspace_projection_only"
 
   canonical_path_rules:
     benchmark_root_must_be: "/Users/stephenbeale/Projects/ToM_AI_Research_Team"

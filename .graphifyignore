@@ -1,0 +1,8 @@
+# Graphify scan exclusions for autoresearch-macos-tomx
+# Gitignore-style patterns; see graphify detect.py (_load_graphifyignore)
+
+# OMX demo/playground code — duplicates root train.py and adds noise
+oh-my-codex/playground/
+
+# Local Python environment (not part of the corpus)
+.venv/

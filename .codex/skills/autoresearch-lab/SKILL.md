@@ -34,7 +34,10 @@ Use this skill when the user wants to start, resume, or operationalize the auton
 
 ```bash
 python .codex/skills/autoresearch-lab/scripts/autoresearch_ops.py check-setup --json
+python .codex/skills/autoresearch-lab/scripts/autoresearch_ops.py check-setup --json --repo-only
 ```
+
+Use `--repo-only` to verify required repo files and tooling without requiring downloaded data shards or a trained tokenizer.
 
 3. If the user is starting a fresh run, create a dedicated branch:
 

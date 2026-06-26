@@ -1,3 +1,4 @@
 {
-  "scope": "project"
+  "scope": "project",
+  "mcpMode": "none"
 }

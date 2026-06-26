@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [tomx, main]
+  pull_request:
+
+jobs:
+  lint-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.10"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --dev
+
+      - name: Ruff lint
+        run: |
+          uv run ruff check \
+            backends \
+            tests \
+            prepare.py \
+            .codex/skills/autoresearch-lab/scripts/autoresearch_ops.py
+
+      - name: Repo setup check
+        run: |
+          uv run python .codex/skills/autoresearch-lab/scripts/autoresearch_ops.py \
+            check-setup --json --repo-only
+
+      - name: Unit tests
+        run: uv run python -m unittest discover -s tests -p 'test_*.py' -q

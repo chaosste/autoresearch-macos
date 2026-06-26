@@ -1,0 +1,7 @@
+{
+  "unwantedRecommendations": [
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-azuretools.vscode-aks-tools",
+    "ms-azuretools.vscode-aks-tools-command"
+  ]
+}
